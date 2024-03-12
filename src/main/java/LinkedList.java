@@ -65,8 +65,6 @@ public class LinkedList {
         linkedList.add(1);
         linkedList.add(1);
 
-        linkedList.print();
-
         linkedList.remove(1);
 
         linkedList.print();
