@@ -66,7 +66,6 @@ public class LinkedList {
         linkedList.add(1);
 
         linkedList.print();
-        System.out.println();
 
         linkedList.remove(1);
 
