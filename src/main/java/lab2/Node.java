@@ -20,4 +20,12 @@ public class Node<T> {
     public Node<T> getNext() {
         return next;
     }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "data=" + data +
+                ", next=" + next +
+                '}';
+    }
 }

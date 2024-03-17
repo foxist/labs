@@ -24,6 +24,27 @@ public class LinkedList<T> {
         size++;
     }
 
+    public void addFirst(T data) {
+        Node<T> firstNode = new Node<>(data);
+        firstNode.setNext(head);
+        head = firstNode;
+        size++;
+    }
+
+    public void add(T data) {
+        if (head == null) {
+            head = new Node<>(data);
+            size++;
+            return;
+        }
+
+        Node<T> currentNode = head;
+        while (currentNode.getNext() != null)
+            currentNode = currentNode.getNext();
+        currentNode.setNext(new Node<>(data));
+        size++;
+    }
+
     public void remove(T data) {
         if (head.getData().equals(data)) {
             head = head.getNext();
@@ -42,39 +63,31 @@ public class LinkedList<T> {
         }
     }
 
-    public void traverse() {
-        if (isEmpty()) {
-            System.out.println("List is Empty!");
-        } else {
-            Node<T> currentNode = head;
-            while (currentNode != null) {
-                System.out.println(currentNode.getData());
-                currentNode = currentNode.getNext();
-            }
-        }
-    }
-
     @Override
     public String toString() {
-        return getClass().getName() + "@" + Integer.toHexString(hashCode());
+        return "LinkedList{" +
+                "head=" + head +
+                ", size=" + size +
+                '}';
     }
 
     public static void main(String[] args) {
         LinkedList<Integer> linkedList = new LinkedList<>();
 
-        linkedList.insert(40);
-        linkedList.insert(30);
+//        linkedList.insert(40);
+//        linkedList.insert(30);
+//        linkedList.insert(20);
+//        linkedList.insert(10);
         linkedList.insert(20);
-        linkedList.insert(10);
-        linkedList.insert(20);
+        linkedList.addFirst(30);
+        linkedList.add(10);
+        linkedList.add(20);
+        linkedList.add(40);
 
         System.out.println(linkedList.getSize());
-        linkedList.traverse();
 
         linkedList.remove(20);
 
         System.out.println(linkedList.getSize());
-
-        linkedList.traverse();
     }
 }
