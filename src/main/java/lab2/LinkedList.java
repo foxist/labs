@@ -78,7 +78,6 @@ public class LinkedList<T> {
         linkedList.add(10);
         linkedList.add(20);
         linkedList.add(10);
-        linkedList.add(40);
         linkedList.add(20);
         linkedList.add(10);
 
@@ -87,6 +86,12 @@ public class LinkedList<T> {
         System.out.println(linkedList.getSize());
 
         linkedList.remove(20);
+
+        System.out.println(linkedList);
+
+        System.out.println(linkedList.getSize());
+
+        linkedList.remove(10);
 
         System.out.println(linkedList);
 
