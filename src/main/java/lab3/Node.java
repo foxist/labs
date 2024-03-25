@@ -2,40 +2,40 @@ package lab3;
 
 import java.util.Comparator;
 
-public class Node<T> {
+public class Node {
 
-    private final T data;
-    private Node<T> left;
-    private Node<T> right;
+    private final int data;
+    private Node left;
+    private Node right;
 
-    Node(T data) {
+    Node(int data) {
         this.data = data;
         left = null;
         right = null;
     }
 
-    Node(T data, Node<T> left, Node<T> right) {
+    Node(int data, Node left, Node right) {
         this.data = data;
         this.left = left;
         this.right = right;
     }
 
-    public T getData() {
+    public int getData() {
         return data;
     }
 
-    public void setLeft(Node<T> left) {
+    public void setLeft(Node left) {
         this.left = left;
     }
 
-    public void setRight(Node<T> right) {
+    public void setRight(Node right) {
         this.right = right;
     }
-    public Node<T> getLeft() {
+    public Node getLeft() {
         return left;
     }
 
-    public Node<T> getRight() {
+    public Node getRight() {
         return right;
     }
 
