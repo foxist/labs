@@ -17,24 +17,37 @@ public class LinkedList<T> {
         return size == 0;
     }
 
-    public void insert(T data) {
-        Node<T> node = new Node<>(data);
-        node.setNext(head);
-        head = node;
+    public void addFirst(T data) {
+        Node<T> firstNode = new Node<>(data);
+        firstNode.setNext(head);
+        head = firstNode;
+        size++;
+    }
+
+    public void add(T data) {
+        if (head == null) {
+            head = new Node<>(data);
+            size++;
+            return;
+        }
+
+        Node<T> currentNode = head;
+        while (currentNode.getNext() != null)
+            currentNode = currentNode.getNext();
+        currentNode.setNext(new Node<>(data));
         size++;
     }
 
     public void remove(T data) {
-        if (head.getData().equals(data)) {
-            head = head.getNext();
-            size--;
-        }
-        Node<T> previousNode = head;
-        Node<T> currentNode = head.getNext();
+        Node<T> previousNode = null;
+        Node<T> currentNode = head;
 
         while (currentNode != null) {
             if (currentNode.getData().equals(data)) {
-                previousNode.setNext(currentNode.getNext());
+                if (head.getData().equals(data))
+                    head = currentNode.getNext();
+                else
+                    previousNode.setNext(currentNode.getNext());
                 size--;
             }
             previousNode = currentNode;
@@ -42,39 +55,52 @@ public class LinkedList<T> {
         }
     }
 
-    public void traverse() {
-        if (isEmpty()) {
-            System.out.println("List is Empty!");
-        } else {
-            Node<T> currentNode = head;
-            while (currentNode != null) {
-                System.out.println(currentNode.getData());
-                currentNode = currentNode.getNext();
-            }
-        }
-    }
-
     @Override
     public String toString() {
-        return getClass().getName() + "@" + Integer.toHexString(hashCode());
+        StringBuilder string = new StringBuilder();
+        Node<T> currentNode = head;
+
+        for (int i = 0; i < size; i++) {
+            string.append(currentNode.getData());
+            if (size == 1)
+                break;
+            if (i < size - 1)
+                string.append(", ");
+            currentNode = currentNode.getNext();
+        }
+        return "LinkedList{" + string + "}";
     }
 
     public static void main(String[] args) {
         LinkedList<Integer> linkedList = new LinkedList<>();
 
-        linkedList.insert(40);
-        linkedList.insert(30);
-        linkedList.insert(20);
-        linkedList.insert(10);
-        linkedList.insert(20);
+        linkedList.add(20);
+        linkedList.add(10);
+        linkedList.add(20);
+        linkedList.add(10);
+        linkedList.add(20);
+        linkedList.add(10);
+
+        System.out.println(linkedList);
 
         System.out.println(linkedList.getSize());
-        linkedList.traverse();
 
         linkedList.remove(20);
 
+        System.out.println(linkedList);
+
         System.out.println(linkedList.getSize());
 
-        linkedList.traverse();
+        linkedList.remove(10);
+
+        System.out.println(linkedList);
+
+        System.out.println(linkedList.getSize());
+
+        linkedList.remove(10);
+
+        System.out.println(linkedList);
+
+        System.out.println(linkedList.getSize());
     }
 }
