@@ -1,7 +1,5 @@
 package lab3;
 
-import java.util.Comparator;
-
 public class BinarySearchTree {
 
     private Node root;
@@ -36,18 +34,6 @@ public class BinarySearchTree {
             return searchHelper(root.getRight(), data);
     }
 
-    public void display() {
-        displayHelper(root);
-    }
-
-    private void displayHelper(Node root) {
-        if (root != null) {
-            displayHelper(root.getLeft());
-            System.out.println(root.getData());
-            displayHelper(root.getRight());
-        }
-    }
-
     public void remove(int data) {
         if (search(data))
             removeHelper(root, data);
@@ -66,23 +52,53 @@ public class BinarySearchTree {
             if (root.getLeft() == null && root.getRight() == null) {
                 root = null;
             } else if (root.getRight() != null) {
-                root.getData() =
+                root.setData(getLeftChildLeast(root));
+                root.setRight(removeHelper(root.getRight(), root.getData()));
+            } else {
+                root.setData(getRightChildLeast(root));
+                root.setLeft(removeHelper(root.getLeft(), root.getData()));
             }
         }
+        return root;
+    }
+
+    private int getLeftChildLeast(Node root) {
+        root = root.getRight();
+        while (root.getLeft() != null)
+            root = root.getLeft();
+        return root.getData();
+    }
+
+    private int getRightChildLeast(Node root) {
+        root = root.getLeft();
+        while (root.getRight() != null)
+            root = root.getRight();
+        return root.getData();
+    }
+
+    private StringBuilder display(Node root, StringBuilder string) {
+        if (root != null) {
+            display(root.getLeft(), string);
+            string.append(root.getData() + ", ");
+            display(root.getRight(), string);
+        }
+        return string;
     }
 
     @Override
     public String toString() {
-        return "BinarySearchTree{" +
-                "root=" + root +
-                '}';
+        StringBuilder stringBuilder = new StringBuilder();
+        display(root, stringBuilder);
+        return "{" + stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()) + "}";
     }
 
     public static void main(String[] args) {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
         for (int i : new int[]{-5, -4, -3, -6, 1, 7, 9, 8})
             binarySearchTree.insert(new Node(i));
-        binarySearchTree.display();
+
+        binarySearchTree.remove(9);
+        System.out.println(binarySearchTree);
 
         for (int i = 1; i <= 10; i++) {
             System.out.println(binarySearchTree.search(i));

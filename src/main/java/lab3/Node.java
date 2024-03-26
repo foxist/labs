@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 public class Node {
 
-    private final int data;
+    private int data;
     private Node left;
     private Node right;
 
@@ -18,6 +18,10 @@ public class Node {
         this.data = data;
         this.left = left;
         this.right = right;
+    }
+
+    public void setData(int data) {
+        this.data = data;
     }
 
     public int getData() {
