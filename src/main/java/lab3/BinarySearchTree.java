@@ -3,9 +3,11 @@ package lab3;
 public class BinarySearchTree {
 
     private Node root;
+    private int size;
 
     public void insert(Node node) {
         root = insertHelper(root, node);
+        size++;
     }
 
     private Node insertHelper(Node root, Node node) {
@@ -35,9 +37,10 @@ public class BinarySearchTree {
     }
 
     public void remove(int data) {
-        if (search(data))
+        if (search(data)) {
             removeHelper(root, data);
-        else
+            size--;
+        } else
             System.out.println(data + " couldn't be found");
     }
 
@@ -50,7 +53,10 @@ public class BinarySearchTree {
             root.setRight(removeHelper(root.getRight(), data));
         } else {
             if (root.getLeft() == null && root.getRight() == null) {
-                root = null;
+                if (size == 1)
+                    this.root = null;
+                else
+                    root = null;
             } else if (root.getRight() != null) {
                 root.setData(getLeftChildLeast(root));
                 root.setRight(removeHelper(root.getRight(), root.getData()));
@@ -89,19 +95,18 @@ public class BinarySearchTree {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         display(root, stringBuilder);
+        if (size == 0)
+            return "{" + stringBuilder + "}";
         return "{" + stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()) + "}";
     }
 
     public static void main(String[] args) {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
-        for (int i : new int[]{-5, -4, -3, -6, 1, 7, 9, 8})
+        for (int i : new int[]{8, 9, 0, -123})
             binarySearchTree.insert(new Node(i));
 
-        binarySearchTree.remove(9);
+        for (int i : new int[]{8, 9, 0})
+            binarySearchTree.remove(i);
         System.out.println(binarySearchTree);
-
-        for (int i = 1; i <= 10; i++) {
-            System.out.println(binarySearchTree.search(i));
-        }
     }
 }
