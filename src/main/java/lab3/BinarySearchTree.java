@@ -36,12 +36,13 @@ public class BinarySearchTree {
             return searchHelper(root.getRight(), data);
     }
 
-    public void remove(int data) {
+    public boolean remove(int data) {
         if (search(data)) {
             removeHelper(root, data);
             size--;
+            return true;
         } else
-            System.out.println(data + " couldn't be found");
+            return false;
     }
 
     private Node removeHelper(Node root, int data) {
@@ -82,31 +83,33 @@ public class BinarySearchTree {
         return root.getData();
     }
 
-    private StringBuilder display(Node root, StringBuilder string) {
+    private StringBuilder display(Node root, StringBuilder stringBuilder) {
         if (root != null) {
-            display(root.getLeft(), string);
-            string.append(root.getData() + ", ");
-            display(root.getRight(), string);
+            display(root.getLeft(), stringBuilder);
+            stringBuilder.append(root.getData() + ", ");
+            display(root.getRight(), stringBuilder);
         }
-        return string;
+        return stringBuilder;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         display(root, stringBuilder);
-        if (size == 0)
-            return "{" + stringBuilder + "}";
-        return "{" + stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()) + "}";
+        if (size == 0) {
+            return stringBuilder.append("{").append("}").toString();
+        } else {
+            return "{" + stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length()) + "}";
+        }
     }
 
     public static void main(String[] args) {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
-        for (int i : new int[]{8, 9, 0, -123})
+        for (int i : new int[]{8, 9})
             binarySearchTree.insert(new Node(i));
 
-        for (int i : new int[]{8, 9, 0})
-            binarySearchTree.remove(i);
+        for (int i : new int[]{8, 9})
+            System.out.println(binarySearchTree.remove(i));
         System.out.println(binarySearchTree);
     }
 }
