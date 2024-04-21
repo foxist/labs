@@ -11,4 +11,12 @@ package lab4;
  * 5. Создай класс Computer, в котором будут объекты всех вышеупомянутых классов и методы для вывода информации о каждом компоненте.
  * */
 public class Computer {
+
+    public void turnOn() {
+
+    }
+
+    public void turnOff() {
+
+    }
 }

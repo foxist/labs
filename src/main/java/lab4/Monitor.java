@@ -6,8 +6,9 @@ public class Monitor extends Component implements Electrical {
     private boolean switcher;
 
     public Monitor() {
-        frequency = 0;
-        switcher = false;
+        super();
+        this.frequency = 0;
+        this.switcher = false;
     }
 
     public Monitor(int frequency, boolean switcher) {
